@@ -115,3 +115,13 @@ select * from crime where community_area_number> 20 and primary_type='THEFT';
 
 CREATE TABLE crime2 as select * from crime where community_area_number> 60 and primary_type='THEFT';
 SELECT * from crime2;
+
+
+select date as datum from crime2
+         limit 5;
+
+
+SELECT DATE AS datum,
+                current_date - DATE AS proteklo
+         FROM crime2
+         LIMIT 5;
