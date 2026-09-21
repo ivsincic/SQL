@@ -1,0 +1,117 @@
+SELECT ID,YEAR FROM CRIME
+                                WHERE    ID<7700000
+                           ORDER BY YEAR
+         LIMIT 20;
+
+
+
+
+SELECT ID,YEAR FROM CRIME
+                                         WHERE    ID<7700000
+                                    ORDER BY YEAR
+                  LIMIT 40;
+
+
+
+SELECT ID,YEAR FROM CRIME
+                                         WHERE    ID<7700000
+                                    ORDER BY YEAR
+                  LIMIT 600;
+
+
+
+SELECT ID,YEAR FROM CRIME
+                           WHERE    ID<7700000
+                           ORDER BY ID
+                           LIMIT 20;
+
+
+
+ SELECT YEAR FROM CRIME
+                             GROUP  BY YEAR;
+
+
+
+SELECT DISTINCT YEAR FROM CRIME;
+
+
+
+SELECT DISTINCT YEAR FROM CRIME ORDER BY YEAR;
+
+
+
+SELECT DISTINCT YEAR FROM CRIME ORDER BY YEAR desc;
+
+
+
+SELECT YEAR FROM CRIME GROUP BY YEAR;
+
+
+
+SELECT YEAR FROM CRIME GROUP BY YEAR
+         having YEAR>2010;
+
+
+
+SELECT * FROM CRIME;
+
+
+
+SELECT LONGITUDE
+         FROM crime
+         WHERE LONGITUDE >= 41
+           AND LONGITUDE < 42;
+
+
+
+SELECT LONGITUDE
+         FROM crime
+         WHERE CAST(LONGITUDE AS VARCHAR) LIKE '-87.%';
+
+
+SELECT LONGITUDE
+         FROM crime
+         WHERE CAST(LONGITUDE AS VARCHAR) LIKE '-87.%';
+
+
+
+SELECT LONGITUDE
+         FROM crime
+         WHERE CAST(LONGITUDE AS VARCHAR) LIKE '-87.7%';
+
+
+SELECT LONGITUDE
+                  FROM crime
+                  WHERE CAST(LONGITUDE AS VARCHAR) LIKE '-87.77%';
+
+
+select * from crime;
+
+
+select avg(year) from crime;
+
+
+select avg(year) as prosjek, avg(latitude) as duljina from crime;
+
+
+select avg(year) as prosjek, avg(latitude) as duljina, sum(id) as identitet from crime;
+
+
+
+select * from crime
+         limit 20;
+
+
+select * from crime where community_area_number> 20;
+
+
+select * from crime where community_area_number> 50;
+
+
+select * from crime where community_area_number> 20 and primary_type='theft';
+
+select * from crime where community_area_number> 20 and primary_type='THEFT';
+
+
+CREATE TABLE crime2 as select * from crime where community_area_number> 60 and primary_type='THEFT';
+SELECT * from crime2;
