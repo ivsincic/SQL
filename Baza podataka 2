@@ -1,0 +1,88 @@
+SELECT DATE AS datum,
+                current_date - DATE AS proteklo
+         FROM crime2
+         LIMIT 5;
+
+
+SELECT DATE AS datum,
+                         current_date - DATE AS proteklo
+                  FROM crime2;
+
+
+SELECT DATE AS datum,
+                                  current_date - DATE AS proteklo
+                           FROM crime2
+         order by proteklo;
+
+
+
+SELECT DATE AS datum,
+                                           current_date - DATE AS proteklo
+                                    FROM crime2
+                  order by proteklo desc;
+
+
+SELECT *, current_date - DATE AS proteklo
+                                             FROM crime2
+                           order by proteklo desc;
+
+
+
+SELECT *, current_date - DATE AS proteklo
+                                                      FROM crime2
+                                    order by proteklo asc;
+
+
+select * from crime where PRIMARY_TYPE='GAMBLING';
+
+
+SELECT PRIMARY_TYPE, COUNT(*) FROM CRIME GROUP BY PRIMARY_TYPE;
+
+SELECT COUNT(*) FROM CRIME GROUP BY PRIMARY_TYPE;
+
+
+SELECT * FROM CRIME WHERE PRIMARY_TYPE='BATTERY';
+
+SELECT * FROM CRIME WHERE PRIMARY_TYPE='BATTERY' LIMIT 30;
+
+CREATE TABLE crime3 as SELECT * FROM CRIME WHERE PRIMARY_TYPE='BATTERY' LIMIT 30;
+
+select * from crime3;
+
+
+SELECT * FROM crime2
+                  left join crime3
+                  on crime2.COMMUNITY_AREA_NUMBER=crime3.COMMUNITY_AREA_NUMBER;
+
+SELECT CRIME2.ID,CRIME3.ID FROM CRIME2, CRIME3;
+
+
+SELECT ID,DATE,PRIMARY_TYPE,LOCATION_DESCRIPTION from crime;
+
+CREATE TABLE REDUCIRANA1 AS select ID,DATE,PRIMARY_TYPE,LOCATION_DESCRIPTION from crime;
+select * from reducirana1;
+
+
+CREATE TABLE REDUCIRANA2 AS select ID,DATE,BLOCK,FBICODE from crime;
+select * from reducirana2;
+
+
+select * from reducirana1
+         left join reducirana2
+         on reducirana1.ID=reducirana2.ID;
+
+create table REDUCIRANA_ZDRUZENA AS select * from reducirana1
+                  left join reducirana2
+                  on reducirana1.ID=reducirana2.ID;
+
+select * from reducirana_zdruzena;
+
+select date from reducirana_zdruzena;
+
+ select id,id from reducirana_zdruzena;
+
+select * from reducirana_zdruzena limit 50;
+select * from reducirana_zdruzena limit 40;
+select * from reducirana_zdruzena limit 40 offset 5;
+
+
