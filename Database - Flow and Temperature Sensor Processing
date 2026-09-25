@@ -1,0 +1,443 @@
+DuckDB Web Shell running...
+DuckDB v1.5.2 (Variegata)
+Enter ".help" for usage hints.
+memory D .files add
+Registered: SFAB_Mj1_vol15min_lin5_poz3_20260924_radi0.txt (1013588 bytes)
+memory D CREATE TABLE mjerenja AS
+         SELECT *
+         FROM read_csv('SFAB_Mj1_vol15min_lin5_poz3_20260924_radi0.txt', delim='\t');
+Invalid Input Error:
+Error when sniffing file "SFAB_Mj1_vol15min_lin5_poz3_20260924_radi0.txt".
+It was not possible to automatically detect the CSV parsing dialect
+The search space used was:
+Delimiter Candidates: ' '
+Quote/Escape Candidates: ['(no quote)','(no escape)'],['"','(no escape)'],['"','"'],['"','''],['"','\'],[''','(no escape)'],[''','''],[''','"'],[''','\']
+Comment Candidates: '\0', '#'
+Encoding: utf-8
+Possible fixes:
+* Disable the parser's strict mode (strict_mode=false) to allow reading rows that do not comply with the CSV standard.
+* Make sure you are using the correct file encoding. If not, set it (e.g., encoding = 'utf-16').
+* Delimiter is set to ' '. Consider unsetting it.
+* Set quote (e.g., quote='"')
+* Set escape (e.g., escape='"')
+* Set comment (e.g., comment='#')
+* Set skip (skip=${n}) to skip ${n} lines at the top of the file
+* Enable ignore errors (ignore_errors=true) to ignore potential errors
+* Enable null padding (null_padding=true) to pad missing columns with NULL values
+* Check you are using the correct file compression, otherwise set it (e.g., compression = 'zstd')
+* Be sure that the maximum line size is set to an appropriate value, otherwise set it (e.g., max_line_size=10000000)
+
+
+LINE 3: FROM read_csv('SFAB_Mj1_vol15min_lin5_poz3_20260924_radi0.txt...
+             ^
+memory D SELECT *
+         FROM read_csv(
+             'SFAB_Mj1_vol15min_lin5_poz3_20260924_radi0.txt',
+             delim='\t',
+             quote='"',
+             encoding='utf-16'
+         )
+         LIMIT 5;
+┌──────────────────────────────┬─────────────────────┬───────────┬──────────┬───────────────────┐
+│           VarName            │     TimeString      │ VarValue  │ Validity │      Time_ms      │
+│           varchar            │       varchar       │  double   │  int64   │      double       │
+├──────────────────────────────┼─────────────────────┼───────────┼──────────┼───────────────────┤
+│ UkupniVolumenKroz15MinutaHMI │ 2026-09-24 07:52:07 │ 0.0       │ 1        │ 46289327859.12037 │
+│ ProsjecniProtokKroz15minHMI  │ 2026-09-24 07:52:07 │ 0.0       │ 1        │ 46289327859.12037 │
+│ SFABtempHMI                  │ 2026-09-24 07:52:07 │ 20.0      │ 1        │ 46289327859.12037 │
+│ SFABflowHMI_l/s              │ 2026-09-24 07:52:07 │ 0.205556  │ 1        │ 46289327859.12037 │
+│ UkupniVolumenKroz15MinutaHMI │ 2026-09-24 07:52:08 │ -3.508333 │ 1        │ 46289327870.70602 │
+└──────────────────────────────┴─────────────────────┴───────────┴──────────┴───────────────────┘
+
+
+memory D SELECT *
+                           FROM read_csv(
+                               'SFAB_Mj1_vol15min_lin5_poz3_20260924_radi0.txt',
+                               delim='\t',
+                               quote='"',
+                               encoding='utf-16'
+                           )
+                           WHERE VarName='SFABflowHMI_l/s' LIMIT 10;
+┌─────────────────┬─────────────────────┬──────────┬──────────┬────────────────────┐
+│     VarName     │     TimeString      │ VarValue │ Validity │      Time_ms       │
+│     varchar     │       varchar       │  double  │  int64   │       double       │
+├─────────────────┼─────────────────────┼──────────┼──────────┼────────────────────┤
+│ SFABflowHMI_l/s │ 2026-09-24 07:52:07 │ 0.205556 │ 1        │ 46289327859.12037  │
+│ SFABflowHMI_l/s │ 2026-09-24 07:52:08 │ 0.197222 │ 1        │ 46289327870.71759  │
+│ SFABflowHMI_l/s │ 2026-09-24 07:52:09 │ 0.205556 │ 1        │ 46289327882.28009  │
+│ SFABflowHMI_l/s │ 2026-09-24 07:52:10 │ 0.205556 │ 1        │ 46289327893.86574  │
+│ SFABflowHMI_l/s │ 2026-09-24 07:52:11 │ 0.208333 │ 1        │ 46289327905.42824  │
+│ SFABflowHMI_l/s │ 2026-09-24 07:52:12 │ 0.208333 │ 1        │ 46289327917.00232  │
+│ SFABflowHMI_l/s │ 2026-09-24 07:52:13 │ 0.205556 │ 1        │ 46289327928.576385 │
+│ SFABflowHMI_l/s │ 2026-09-24 07:52:14 │ 0.213889 │ 1        │ 46289327940.16204  │
+│ SFABflowHMI_l/s │ 2026-09-24 07:52:15 │ 0.208333 │ 1        │ 46289327951.72454  │
+│ SFABflowHMI_l/s │ 2026-09-24 07:52:16 │ 0.208333 │ 1        │ 46289327963.29861  │
+└─────────────────┴─────────────────────┴──────────┴──────────┴────────────────────┘
+
+
+
+SELECT *
+                                    FROM read_csv(
+                                        'SFAB_Mj1_vol15min_lin5_poz3_20260924_radi0.txt',
+                                        delim='\t',
+                                        quote='"',
+                                        encoding='utf-16'
+                                    )
+                                    WHERE VarName='SFABflowHMI_l/s' LIMIT 60;
+
+--> ovdje se uzima prosjek svega i to zbog redoslijeda izvođenja operacija
+ SELECT AVG(VarValue)
+         FROM read_csv(
+             'SFAB_Mj1_vol15min_lin5_poz3_20260924_radi0.txt',
+             delim='\t',
+             quote='"',
+             encoding='utf-16'
+         )
+         WHERE VarName='SFABflowHMI_l/s'
+         LIMIT 60;
+┌─────────────────────┐
+│    avg(VarValue)    │
+│       double        │
+├─────────────────────┤
+│ 0.17739283829787567 │
+└─────────────────────┘
+
+--> a ovdje bi se trebao samo tih 60 što je limitirano
+memory D SELECT AVG(VarValue)
+         FROM (
+             SELECT VarValue
+             FROM read_csv(
+                 'SFAB_Mj1_vol15min_lin5_poz3_20260924_radi0.txt',
+                 delim='\t',
+                 quote='"',
+                 encoding='utf-16'
+             )
+             WHERE VarName='SFABflowHMI_l/s'
+             LIMIT 60
+         );
+┌────────────────────┐
+│   avg(VarValue)    │
+│       double       │
+├────────────────────┤
+│ 0.2092130499999999 │
+
+
+
+memory D SELECT SUM(VarValue),AVG(VarValue)
+                  FROM (
+                      SELECT VarValue
+                      FROM read_csv(
+                          'SFAB_Mj1_vol15min_lin5_poz3_20260924_radi0.txt',
+                          delim='\t',
+                          quote='"',
+                          encoding='utf-16'
+                      )
+                      WHERE VarName='SFABflowHMI_l/s'
+                      LIMIT 60
+                  );
+┌────────────────────┬────────────────────┐
+│   sum(VarValue)    │   avg(VarValue)    │
+│       double       │       double       │
+├────────────────────┼────────────────────┤
+│ 12.552782999999994 │ 0.2092130499999999 │
+└────────────────────┴────────────────────┘
+
+
+SELECT SUM(VarValue),AVG(VarValue)
+                           FROM (
+                               SELECT VarValue
+                               FROM read_csv(
+                                   'SFAB_Mj1_vol15min_lin5_poz3_20260924_radi0.txt',
+                                   delim='\t',
+                                   quote='"',
+                                   encoding='utf-16'
+                               )
+                               WHERE VarName='SFABflowHMI_l/s'
+                               LIMIT 60 OFFSET 60
+                           );
+┌────────────────────┬───────────────┐
+│   sum(VarValue)    │ avg(VarValue) │
+│       double       │    double     │
+├────────────────────┼───────────────┤
+│ 20.258328000000002 │ 0.3376388     │
+└────────────────────┴───────────────┘
+
+
+--> provjera je li to baš drugi prozor:
+
+SELECT *
+                                                      FROM (
+                                                          SELECT TimeString,VarValue
+                                                          FROM read_csv(
+                                                              'SFAB_Mj1_vol15min_lin5_poz3_20260924_radi0.txt',
+                                                              delim='\t',
+                                                              quote='"',
+                                                              encoding='utf-16'
+                                                          )
+                                                          WHERE VarName='SFABflowHMI_l/s'
+                                                          LIMIT 60 OFFSET 60
+                                                      );
+┌─────────────────────┬──────────┐
+│     TimeString      │ VarValue │
+│       varchar       │  double  │
+├─────────────────────┼──────────┤
+│ 2026-09-24 07:53:07 │ 0.211111 │
+│ 2026-09-24 07:53:08 │ 0.211111 │
+│ 2026-09-24 07:53:09 │ 0.194444 │
+│ 2026-09-24 07:53:10 │ 0.208333 │
+│ 2026-09-24 07:53:11 │ 0.202778 │
+│ 2026-09-24 07:53:12 │ 0.211111 │
+│ 2026-09-24 07:53:13 │ 0.225    │
+│ 2026-09-24 07:53:14 │ 1.2      │
+│ 2026-09-24 07:53:15 │ 0.233333 │
+│ 2026-09-24 07:53:16 │ 0.969444 │
+│ 2026-09-24 07:53:17 │ 0.233333 │
+│ 2026-09-24 07:53:18 │ 0.208333 │
+│ 2026-09-24 07:53:19 │ 0.25     │
+│ 2026-09-24 07:53:20 │ 0.222222 │
+│ 2026-09-24 07:53:21 │ 0.402778 │
+│ 2026-09-24 07:53:22 │ 0.216667 │
+│ 2026-09-24 07:53:23 │ 0.380556 │
+│ 2026-09-24 07:53:24 │ 0.222222 │
+│ 2026-09-24 07:53:25 │ 0.211111 │
+│ 2026-09-24 07:53:26 │ 0.225    │
+│          ·          │   ·      │
+│          ·          │   ·      │
+│          ·          │   ·      │
+│ 2026-09-24 07:53:47 │ 0.213889 │
+│ 2026-09-24 07:53:48 │ 0.466667 │
+│ 2026-09-24 07:53:49 │ 0.233333 │
+│ 2026-09-24 07:53:50 │ 0.652778 │
+│ 2026-09-24 07:53:51 │ 0.227778 │
+│ 2026-09-24 07:53:52 │ 1.394444 │
+│ 2026-09-24 07:53:53 │ 0.233333 │
+│ 2026-09-24 07:53:54 │ 1.241667 │
+│ 2026-09-24 07:53:55 │ 0.227778 │
+│ 2026-09-24 07:53:56 │ 0.197222 │
+│ 2026-09-24 07:53:57 │ 0.144444 │
+│ 2026-09-24 07:53:58 │ 0.133333 │
+│ 2026-09-24 07:53:59 │ 0.122222 │
+│ 2026-09-24 07:54:00 │ 0.075    │
+│ 2026-09-24 07:54:01 │ 0.133333 │
+│ 2026-09-24 07:54:02 │ 0.113889 │
+│ 2026-09-24 07:54:03 │ 0.133333 │
+│ 2026-09-24 07:54:04 │ 0.119444 │
+│ 2026-09-24 07:54:05 │ 0.133333 │
+│ 2026-09-24 07:54:06 │ 0.313889 │
+└─────────────────────┴──────────┘
+  60 rows (40 shown)   2 columns
+
+
+
+
+SELECT SUM(VarValue),AVG(VarValue)
+                                                      FROM (
+                                                          SELECT VarValue
+                                                          FROM read_csv(
+                                                              'SFAB_Mj1_vol15min_lin5_poz3_20260924_radi0.txt',
+                                                              delim='\t',
+                                                              quote='"',
+                                                              encoding='utf-16'
+                                                          )
+                                                          WHERE VarName='SFABflowHMI_l/s'
+                                                          LIMIT 60 OFFSET 120
+                                                      );
+┌────────────────────┬────────────────────┐
+│   sum(VarValue)    │   avg(VarValue)    │
+│       double       │       double       │
+├────────────────────┼────────────────────┤
+│ 14.477778999999996 │ 0.2412963166666666 │
+└────────────────────┴────────────────────┘
+
+
+
+SELECT SUM(VarValue),AVG(VarValue)
+                                                                                                            FROM (
+                                                                                                                SELECT VarValue
+                                                                                                                FROM read_csv(
+                                                                                                                    'SFAB_Mj1_vol15min_lin5_poz3_20260924_radi0.txt',
+                                                                                                                    delim='\t',
+                                                                                                                    quote='"',
+                                                                                                                    encoding='utf-16'
+                                                                                                                )
+                                                                                                                WHERE VarName='SFABflowHMI_l/s'
+                                                                                                                LIMIT 60 OFFSET 660
+                                                                                                            );
+
+
+
+SELECT SUM(VarValue),AVG(VarValue)
+                                                                                                                     FROM (
+                                                                                                                         SELECT VarValue
+                                                                                                                         FROM read_csv(
+                                                                                                                             'SFAB_Mj1_vol15min_lin5_poz3_20260924_radi0.txt',
+                                                                                                                             delim='\t',
+                                                                                                                             quote='"',
+                                                                                                                             encoding='utf-16'
+                                                                                                                         )
+                                                                                                                         WHERE VarName='SFABflowHMI_l/s'
+                                                                                                                         LIMIT 60 OFFSET 840
+                                                                                                                     );
+┌───────────────┬─────────────────────┐
+│ sum(VarValue) │    avg(VarValue)    │
+│    double     │       double        │
+├───────────────┼─────────────────────┤
+│ 8.550004      │ 0.14250006666666665 │
+
+
+
+SELECT SUM(VarValue),AVG(VarValue)
+                                                                                                                     FROM (
+                                                                                                                         SELECT VarValue
+                                                                                                                         FROM read_csv(
+                                                                                                                             'SFAB_Mj1_vol15min_lin5_poz3_20260924_radi0.txt',
+                                                                                                                             delim='\t',
+                                                                                                                             quote='"',
+                                                                                                                             encoding='utf-16'
+                                                                                                                         )
+                                                                                                                         WHERE VarName='SFABflowHMI_l/s'
+                                                                                                                         LIMIT 60 OFFSET 675
+                                                                                                                     );
+
+
+
+SELECT *
+                                                                              FROM (
+                                                                                                                                                             SELECT TimeString,VarValue
+                                                                                                                                                             FROM read_csv(
+                                                                                                                                                                 'SFAB_Mj1_vol15min_lin5_poz3_20260924_radi0.txt',
+                                                                                                                                                                 delim='\t',
+                                                                                                                                                                 quote='"',
+                                                                                                                                                                 encoding='utf-16'
+                                                                                                                                                             )
+                                                                                                                                                             WHERE VarName='SFABflowHMI_l/s'
+                                                                                                                                                             LIMIT 80 OFFSET 730
+                                                                                                                                                         );
+
+
+SELECT *
+                     
+                                                                                                                                                                                                                                                                                                                                       
+                                                                                                         FROM (
+                                                                                                                                                                                        SELECT *
+                                                                                                                                                                                        FROM read_csv(
+                                                                                                                                                                                            'SFAB_Mj1_vol15min_lin5_poz3_20260924_radi0.txt',
+                                                                                                                                                                                            delim='\t',
+                                                                                                                                                                                            quote='"',
+                                                                                                                                                                                            encoding='utf-16'
+                                                                                                                                                                                        )
+                                                                                                                                                                                        WHERE VarName='SFABflowHMI_l/s'
+                                                                                                                                                                                        LIMIT 60 OFFSET 735
+                                                                                                                                                                                    );
+         
+         
+┌─────────────────┬─────────────────────┬──────────┬──────────┬────────────────────┐
+│     VarName     │     TimeString      │ VarValue │ Validity │      Time_ms       │
+│     varchar     │       varchar       │  double  │  int64   │       double       │
+├─────────────────┼─────────────────────┼──────────┼──────────┼────────────────────┤
+│ SFABflowHMI_l/s │ 2026-09-24 08:04:22 │ 0.122222 │ 1        │ 46289336371.36574  │
+│ SFABflowHMI_l/s │ 2026-09-24 08:04:23 │ 0.125    │ 1        │ 46289336382.92824  │
+│ SFABflowHMI_l/s │ 2026-09-24 08:04:24 │ 0.133333 │ 1        │ 46289336394.50232  │
+│ SFABflowHMI_l/s │ 2026-09-24 08:04:25 │ 0.141667 │ 1        │ 46289336406.07639  │
+│ SFABflowHMI_l/s │ 2026-09-24 08:04:26 │ 0.136111 │ 1        │ 46289336417.65046  │
+│ SFABflowHMI_l/s │ 2026-09-24 08:04:27 │ 0.122222 │ 1        │ 46289336429.22454  │
+│ SFABflowHMI_l/s │ 2026-09-24 08:04:28 │ 0.141667 │ 1        │ 46289336440.79861  │
+│ SFABflowHMI_l/s │ 2026-09-24 08:04:29 │ 0.141667 │ 1        │ 46289336452.38426  │
+│ SFABflowHMI_l/s │ 2026-09-24 08:04:30 │ 0.130556 │ 1        │ 46289336463.94676  │
+│ SFABflowHMI_l/s │ 2026-09-24 08:04:31 │ 0.141667 │ 1        │ 46289336475.50926  │
+│ SFABflowHMI_l/s │ 2026-09-24 08:04:32 │ 0.133333 │ 1        │ 46289336487.09491  │
+│ SFABflowHMI_l/s │ 2026-09-24 08:04:33 │ 0.136111 │ 1        │ 46289336498.65741  │
+│ SFABflowHMI_l/s │ 2026-09-24 08:04:34 │ 0.141667 │ 1        │ 46289336510.24306  │
+│ SFABflowHMI_l/s │ 2026-09-24 08:04:35 │ 0.127778 │ 1        │ 46289336521.81713  │
+│ SFABflowHMI_l/s │ 2026-09-24 08:04:36 │ 0.136111 │ 1        │ 46289336533.3912   │
+│ SFABflowHMI_l/s │ 2026-09-24 08:04:37 │ 0.141667 │ 1        │ 46289336544.96528  │
+│ SFABflowHMI_l/s │ 2026-09-24 08:04:38 │ 0.133333 │ 1        │ 46289336556.55093  │
+│ SFABflowHMI_l/s │ 2026-09-24 08:04:39 │ 0.133333 │ 1        │ 46289336568.10185  │
+│ SFABflowHMI_l/s │ 2026-09-24 08:04:40 │ 0.133333 │ 1        │ 46289336579.69907  │
+│ SFABflowHMI_l/s │ 2026-09-24 08:04:41 │ 0.133333 │ 1        │ 46289336591.26157  │
+│        ·        │          ·          │    ·     │ ·        │         ·          │
+│        ·        │          ·          │    ·     │ ·        │         ·          │
+│        ·        │          ·          │    ·     │ ·        │         ·          │
+│ SFABflowHMI_l/s │ 2026-09-24 08:05:02 │ 0.141667 │ 1        │ 46289336834.31713  │
+│ SFABflowHMI_l/s │ 2026-09-24 08:05:03 │ 0.144444 │ 1        │ 46289336845.8912   │
+│ SFABflowHMI_l/s │ 2026-09-24 08:05:04 │ 0.130556 │ 1        │ 46289336857.46528  │
+│ SFABflowHMI_l/s │ 2026-09-24 08:05:05 │ 0.138889 │ 1        │ 46289336869.05093  │
+│ SFABflowHMI_l/s │ 2026-09-24 08:05:06 │ 0.141667 │ 1        │ 46289336880.61343  │
+│ SFABflowHMI_l/s │ 2026-09-24 08:05:07 │ 0.136111 │ 1        │ 46289336892.19907  │
+│ SFABflowHMI_l/s │ 2026-09-24 08:05:08 │ 0.141667 │ 1        │ 46289336903.76157  │
+│ SFABflowHMI_l/s │ 2026-09-24 08:05:09 │ 0.136111 │ 1        │ 46289336915.33565  │
+│ SFABflowHMI_l/s │ 2026-09-24 08:05:10 │ 0.147222 │ 1        │ 46289336926.89815  │
+│ SFABflowHMI_l/s │ 2026-09-24 08:05:11 │ 0.141667 │ 1        │ 46289336938.47222  │
+│ SFABflowHMI_l/s │ 2026-09-24 08:05:12 │ 0.141667 │ 1        │ 46289336950.046295 │
+│ SFABflowHMI_l/s │ 2026-09-24 08:05:13 │ 0.144444 │ 1        │ 46289336961.63195  │
+│ SFABflowHMI_l/s │ 2026-09-24 08:05:14 │ 0.144444 │ 1        │ 46289336973.21759  │
+│ SFABflowHMI_l/s │ 2026-09-24 08:05:15 │ 0.141667 │ 1        │ 46289336984.78009  │
+│ SFABflowHMI_l/s │ 2026-09-24 08:05:16 │ 0.136111 │ 1        │ 46289336996.36574  │
+│ SFABflowHMI_l/s │ 2026-09-24 08:05:17 │ 0.136111 │ 1        │ 46289337007.92824  │
+│ SFABflowHMI_l/s │ 2026-09-24 08:05:18 │ 0.144444 │ 1        │ 46289337019.50232  │
+│ SFABflowHMI_l/s │ 2026-09-24 08:05:19 │ 0.144444 │ 1        │ 46289337031.08796  │
+│ SFABflowHMI_l/s │ 2026-09-24 08:05:20 │ 0.130556 │ 1        │ 46289337042.66204  │
+│ SFABflowHMI_l/s │ 2026-09-24 08:05:21 │ 0.138889 │ 1        │ 46289337054.23611  │
+└─────────────────┴─────────────────────┴──────────┴──────────┴────────────────────┘
+  60 rows (40 shown)                                                     5 columns
+
+
+
+
+
+
+memory D SELECT SUM(VarValue),AVG(VarValue)
+                                                                                                                              FROM (
+                                                                                                                                  SELECT VarValue
+                                                                                                                                  FROM read_csv(
+                                                                                                                                      'SFAB_Mj1_vol15min_lin5_poz3_20260924_radi0.txt',
+                                                                                                                                      delim='\t',
+                                                                                                                                      quote='"',
+                                                                                                                                      encoding='utf-16'
+                                                                                                                                  )
+                                                                                                                                  WHERE VarName='SFABflowHMI_l/s'
+                                                                                                                                  LIMIT 60 OFFSET 735
+                                                                                                                              );
+┌───────────────────┬────────────────────┐
+│   sum(VarValue)   │   avg(VarValue)    │
+│      double       │       double       │
+├───────────────────┼────────────────────┤
+│ 8.233333999999997 │ 0.1372222333333333 │
+
+--> CHAT daje istu sumu i isti prosjek koji sam gore dao SQL-u da izračuna
+
+SFABflowHMI_l/s │ 2026-09-24 08:04:22 SFABflowHMI_l/s │ 2026-09-24 08:05:21 Zbroji mi vrijednosti za ovu varijablu između ta dva vrmeena
+Za SFABflowHMI_l/s, od 08:04:22 uključivo do 08:05:21 uključivo:
+
+Broj vrijednosti: 60
+Zbroj: 8,233334 l/s
+Ako želiš, mogu ti izračunati i prosjek tih 60 vrijednosti.
+
+Izračunaj prosjek tih 60 vrijednosti
+Prosjek tih 60 vrijednosti je:
+
+0,137222 l/s
+
+(preciznije 0,1372222333 l/s). 
+
+
+
+
+SELECT SUM(VarValue),AVG(VarValue)
+                                                                                                                                                                                    FROM (
+                                                                                                                                                                                        SELECT VarValue
+                                                                                                                                                                                        FROM read_csv(
+                                                                                                                                                                                            'SFAB_Mj1_vol15min_lin5_poz3_20260924_radi0.txt',
+                                                                                                                                                                                            delim='\t',
+                                                                                                                                                                                            quote='"',
+                                                                                                                                                                                            encoding='utf-16'
+                                                                                                                                                                                        )
+                                                                                                                                                                                        WHERE VarName='SFABflowHMI_l/s'
+                                                                                                                                                                                        LIMIT 60 OFFSET 1575
+                                                                                                                                                                                    );
+┌───────────────────┬─────────────────────┐
+│   sum(VarValue)   │    avg(VarValue)    │
+│      double       │       double        │
+├───────────────────┼─────────────────────┤
+│ 8.327784999999997 │ 0.13879641666666662 │
+└───────────────────┴─────────────────────┘
